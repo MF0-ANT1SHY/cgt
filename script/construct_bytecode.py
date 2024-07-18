@@ -4,18 +4,20 @@ import tempfile
 import shutil
 
 # CSV文件路径
-csv_file_path = '../consolidated.csv'
+csv_file_path = "../consolidated.csv"
 
 # dict目录路径
-dict_directory = '../runtime'
+dict_directory = "../runtime"
+
+defect_type = "reentrancy"
 
 # 创建一个临时文件
-temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, newline='')
+temp_file = tempfile.NamedTemporaryFile(mode="w", delete=False, newline="")
 
 # 打开CSV文件
-with open(csv_file_path, 'r', newline='') as csvfile:
+with open(csv_file_path, "r", newline="") as csvfile:
     reader = csv.DictReader(csvfile)
-    
+
     # 创建CSV writer对象
     fieldnames = reader.fieldnames
     writer = csv.DictWriter(temp_file, fieldnames=fieldnames)
@@ -23,10 +25,10 @@ with open(csv_file_path, 'r', newline='') as csvfile:
 
     # 遍历CSV文件的每一行
     for row in reader:
-        id_value = row['fp_runtime']
+        id_value = row["fp_runtime"]
         hex_file_name = f"{id_value}.rt.hex"
         hex_file_path = os.path.join(dict_directory, hex_file_name)
-        
+
         print(hex_file_path)
 
         # 检查.rt.hex文件是否存在
